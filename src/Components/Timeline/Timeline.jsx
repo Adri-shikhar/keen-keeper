@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TimelineContext } from '../../Context/CreateContent';
+import { MdCall, MdMessage, MdVideocam, MdMic, MdHandshake } from 'react-icons/md';
 
 const Timeline = () => {
+    const { interactionType } = useContext(TimelineContext);
+
+
     return (
-        <div>
-            <h1>Timeline</h1>
-        </div>
+        <>
+        </>
     );
 };
 

@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import MainCard from './MainCard';
+import { TimelineContext } from '../../../Context/CreateContent';
+import ShowDate from '../../ShowDate/ShowDate';
 
 const FriendDetails = () => {
-    const loaderData = useLoaderData();
-    const friend = loaderData?.friend ?? loaderData;
+    const { friend } = useLoaderData();
     const navigate = useNavigate();
 
-    const [interactionType, setInteractionType] = useState([]);
+    const { interactionType, setInteractionType } = useContext(TimelineContext);
 
     const handleClick = (type) => {
         alert(`You chose to ${type} ${friend.name}`);
-        setInteractionType([...interactionType, type, friend.name]);
+        const { date, time } = ShowDate.getDhakaDateTime();
+        const Interaction_data = {
+            type,
+            friendName: friend.name,
+            currentDhakaDate: date,
+            currentDhakaTime: time,
+        };
+        setInteractionType([...interactionType, Interaction_data]);
     };
     console.log('interactionType:', interactionType);
 
@@ -31,12 +38,14 @@ const FriendDetails = () => {
         <div className="min-h-screen bg-gray-50 p-4 md:p-8">
             <div className="max-w-6xl mx-auto">
                 {/* Header with back button */}
-                <button
-                    onClick={handleBack}
-                    className="mb-6 text-gray-600 hover:text-gray-900 font-medium text-sm"
-                >
-                    ← Back
-                </button>
+                <div className="mb-6 flex justify-end">
+                    <button
+                        onClick={handleBack}
+                        className="text-gray-600 hover:text-gray-900 font-medium text-sm"
+                    >
+                        ← Back
+                    </button>
+                </div>
 
                 <MainCard friend={friend} formatDate={formatDate} handleClick={handleClick} />
             </div>

@@ -1,15 +1,17 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
-import FriendDetails from '../Friend/FriendDetails/FriendDetails';
+const ShowDate = () => null;
 
-const ShowDate = () => {
-    const dateData = useLoaderData();
-    console.log('dateData:', dateData);
-    return (
-        <div>
-            <FriendDetails dateData={dateData} />
-        </div>
-    );
+ShowDate.getDhakaDateTime = () => {
+    const now = new Date();
+    return {
+        date: now.toLocaleDateString('en-CA', { timeZone: 'Asia/Dhaka' }),
+        time: now.toLocaleTimeString('en-GB', {
+            timeZone: 'Asia/Dhaka',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+        }),
+    };
 };
 
 export default ShowDate;

@@ -10,6 +10,7 @@ import Stats from './Components/Stats/Stats.jsx';
 import Friend from './Components/Friend/Friend.jsx';
 import FriendDetails from './Components/Friend/FriendDetails/FriendDetails.jsx';
 import ShowDate from './Components/ShowDate/ShowDate.jsx';
+import TimelineProvider from './Context/Timeline.jsx';
 
 const router = createBrowserRouter([
   {
@@ -46,19 +47,12 @@ const router = createBrowserRouter([
         path: "/friend/:id",
         Component: FriendDetails,
         loader: async ({ params }) => {
-          const [friendsRes, timeRes] = await Promise.all([
-            fetch('/data.json'),
-            fetch('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Dhaka')
-          ]);
-
-          const [friends, dateData] = await Promise.all([
-            friendsRes.json(),
-            timeRes.json()
-          ]);
+          const friendsRes = await fetch('/data.json');
+          const friends = await friendsRes.json();
 
           const friend = friends.find((item) => item.id === parseInt(params.id));
 
-          return { friend, dateData };
+          return { friend };
         }
       },
       {
@@ -77,6 +71,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <TimelineProvider>
+      <RouterProvider router={router} />
+    </TimelineProvider>
   </StrictMode>,
 )

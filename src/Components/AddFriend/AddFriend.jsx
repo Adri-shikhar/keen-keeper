@@ -1,26 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FiPlus } from 'react-icons/fi';
+import { TimelineContext } from '../../Context/CreateContent';
 
 const AddFriend = ({ friends }) => {
-    const stats = [
-        {
-            number: friends.length.toString(),
-            label: 'Total Friends'
-        },
-        {
-            number: '3',
-            label: 'On Track'
-        },
-        {
-            number: '6',
-            label: 'Need Attention'
-        },
-        {
-            number: '12',
-            label: 'Interactions This Month'
-        }
-    ];
+    const { interactionType } = useContext(TimelineContext);
+    const currentMonth = new Date().toISOString().slice(0, 7);
 
+    const stats = [
+        { number: friends.length, label: 'Total Friends' },
+        { number: friends.filter(f => f.status === 'on-track').length, label: 'On Track' },
+        { number: friends.filter(f => f.status === 'overdue' || f.status === 'almost due').length, label: 'Need Attention' },
+        { number: interactionType.filter(i => i.currentDhakaDate?.startsWith(currentMonth)).length, label: 'Interactions This Month' }
+    ];
 
     return (
         <div className="bg-gray-50 py-12">
@@ -43,12 +34,8 @@ const AddFriend = ({ friends }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {stats.map((stat, index) => (
                         <div key={index} className="bg-white rounded-lg shadow-sm p-8 text-center hover:shadow-md transition-shadow">
-                            <div className="text-4xl font-bold text-gray-800 mb-2">
-                                {stat.number}
-                            </div>
-                            <div className="text-gray-600 text-sm">
-                                {stat.label}
-                            </div>
+                            <div className="text-4xl font-bold text-gray-800 mb-2">{stat.number}</div>
+                            <div className="text-gray-600 text-sm">{stat.label}</div>
                         </div>
                     ))}
                 </div>

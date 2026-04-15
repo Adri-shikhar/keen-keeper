@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const getStatusClass = (status = '') => {
@@ -30,7 +30,25 @@ const getTagClass = (tag = '') => {
 };
 
 const Friend = ({ friends }) => {
-   
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="bg-gray-50 py-8">
+                <div className="flex items-center justify-center min-h-screen">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-12 h-12 border-4 border-teal-200 border-t-teal-700 rounded-full animate-spin"></div>
+                        <p className="text-gray-600 font-medium">Loading friends...</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-gray-50 py-8">

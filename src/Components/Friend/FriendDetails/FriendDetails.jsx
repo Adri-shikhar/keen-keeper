@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import MainCard from './MainCard';
 import { TimelineContext } from '../../../Context/CreateContent';
@@ -8,11 +8,27 @@ import { toast } from 'react-toastify';
 const FriendDetails = () => {
     const { friend } = useLoaderData();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
 
     const { interactionType, setInteractionType } = useContext(TimelineContext);
 
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-2">
+                    <div className="w-8 h-8 border-3 border-teal-200 border-t-teal-700 rounded-full animate-spin"></div>
+                    <p className="text-sm text-gray-600">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+
     const handleClick = (type) => {
-        //alert(`You chose to ${type} ${friend.name}`);
         toast.success(`You chose to ${type} ${friend.name}`, {
             position: "top-right",
             autoClose: 3000,
@@ -33,7 +49,6 @@ const FriendDetails = () => {
         navigate('/');
     };
 
-    //formatDate
     const formatDate = (dateString) => {
         if (!dateString) return 'No date';
         const date = new Date(dateString);

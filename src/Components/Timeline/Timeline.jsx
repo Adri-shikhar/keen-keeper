@@ -23,7 +23,28 @@ const Timeline = () => {
     };
 
     const sortedItems = () => {
-        
+        let items = [...interactionType];
+
+        // Filter by type
+        if (filterType !== 'all') {
+            items = items.filter(item => item.type.toLowerCase() === filterType.toLowerCase());
+        }
+
+        // Sort by date (newest first)
+        items.sort((a, b) => {
+            const aStr = a.currentDhakaDate + a.currentDhakaTime;
+            const bStr = b.currentDhakaDate + b.currentDhakaTime;
+
+            if (bStr > aStr) {
+                return 1;
+            } else if (aStr > bStr) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        return items;
     };
 
     return (

@@ -13,7 +13,7 @@ const Navbar = () => {
     }, [location.key]);
 
     return (
-        <nav className="bg-white shadow-md px-8 py-4">
+        <nav className="hidden md:block bg-white shadow-md px-8 py-4">
             <div className="flex items-center justify-between max-w-7xl mx-auto">
                 <Link to="/" className="text-xl font-semibold text-gray-800">
                     KeenKeeper

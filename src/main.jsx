@@ -9,6 +9,7 @@ import Timeline from './Components/Timeline/Timeline.jsx';
 import Stats from './Components/Stats/Stats.jsx';
 import Friend from './Components/Friend/Friend.jsx';
 import FriendDetails from './Components/Friend/FriendDetails/FriendDetails.jsx';
+import ShowDate from './Components/ShowDate/ShowDate.jsx';
 
 const router = createBrowserRouter([
   {
@@ -45,10 +46,29 @@ const router = createBrowserRouter([
         path: "/friend/:id",
         Component: FriendDetails,
         loader: async ({ params }) => {
-          const res = await fetch('/data.json');
-          const data = await res.json();
-          return data.find(friend => friend.id === parseInt(params.id));
+          const [friendsRes, timeRes] = await Promise.all([
+            fetch('/data.json'),
+            fetch('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Dhaka')
+          ]);
+
+          const [friends, dateData] = await Promise.all([
+            friendsRes.json(),
+            timeRes.json()
+          ]);
+
+          const friend = friends.find((item) => item.id === parseInt(params.id));
+
+          return { friend, dateData };
         }
+      },
+      {
+        path: "/show-date",
+        loader: async () => {
+          const api = 'https://timeapi.io/api/Time/current/zone?timeZone=Asia/Dhaka';
+          const res = await fetch(api);
+          const data = await res.json();
+          return data;
+        },
       }
 
     ]

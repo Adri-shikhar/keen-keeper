@@ -30,7 +30,7 @@ const getTagClass = (tag = '') => {
 };
 
 const Friend = ({ friends }) => {
-    const friendList = Array.isArray(friends) ? friends : friends ? [friends] : [];
+   
 
     return (
         <div className="bg-gray-50 py-8">
@@ -38,7 +38,7 @@ const Friend = ({ friends }) => {
                 <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Your Friends</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {friendList.map((friend) => (
+                    {friends.map((friend) => (
                         <Link
                             key={friend.id}
                             to={`/friend/${friend.id}`}

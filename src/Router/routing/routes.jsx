@@ -1,3 +1,4 @@
+import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import Root from '../../Root/Root.jsx';
 import Home from '../../Components/Home/Home.jsx';
@@ -6,11 +7,13 @@ import Stats from '../../Components/Stats/Stats.jsx';
 import Friend from '../../Components/Friend/Friend.jsx';
 import FriendDetails from '../../Components/Friend/FriendDetails/FriendDetails.jsx';
 import ShowDate from '../../Components/ShowDate/ShowDate.jsx';
+import ErrorPage from '../../Components/ErrorPage/ErrorPage.jsx';
 
 export const router = createBrowserRouter([
     {
         path: "/",
         Component: Root,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
@@ -58,6 +61,10 @@ export const router = createBrowserRouter([
                     const data = await res.json();
                     return data;
                 },
+            },
+            {
+                path: "*",
+                Component: ErrorPage,
             }
 
         ]

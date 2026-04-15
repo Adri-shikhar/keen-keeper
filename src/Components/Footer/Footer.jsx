@@ -3,8 +3,8 @@ import { FiInstagram, FiFacebook, FiTwitter } from 'react-icons/fi';
 
 const Footer = () => {
     return (
-        <footer className="bg-teal-700 text-white h-[413px] flex items-center">
-            <div className="w-full max-w-[1600px] mx-auto px-8 py-8">
+        <footer className="bg-teal-700 text-white h-413px flex items-center">
+            <div className="w-full max-w-1600px mx-auto px-8 py-8">
                 {/* Main Content */}
                 <div className="text-center mb-6">
                     <h1 className="text-4xl font-bold mb-2">KeenKeeper</h1>

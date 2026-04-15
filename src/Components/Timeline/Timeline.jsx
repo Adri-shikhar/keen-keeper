@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { TimelineContext } from '../../Context/CreateContent';
 import { MdCall, MdMessage, MdVideocam, MdMic, MdHandshake } from 'react-icons/md';
-import { toast } from 'react-toastify';
+;
 
 const Timeline = () => {
     const { interactionType } = useContext(TimelineContext);

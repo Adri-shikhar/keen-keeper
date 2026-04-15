@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import './index.css'
 import App from './App.jsx'
 import Root from './Root/Root.jsx';
@@ -73,6 +75,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <TimelineProvider>
       <RouterProvider router={router} />
+      <ToastContainer />
     </TimelineProvider>
   </StrictMode>,
 )

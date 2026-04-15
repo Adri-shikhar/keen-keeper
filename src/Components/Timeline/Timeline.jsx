@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { TimelineContext } from '../../Context/CreateContent';
 import { MdCall, MdMessage, MdVideocam, MdMic, MdHandshake } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 const Timeline = () => {
     const { interactionType } = useContext(TimelineContext);
@@ -24,7 +25,7 @@ const Timeline = () => {
 
     const sortedItems = () => {
         let items = [...interactionType];
-
+      
         // Filter by type
         if (filterType !== 'all') {
             items = items.filter(item => item.type.toLowerCase() === filterType.toLowerCase());
@@ -43,7 +44,7 @@ const Timeline = () => {
                 return 0;
             }
         });
-
+         
         return items;
     };
 

@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 import MainCard from './MainCard';
 import { TimelineContext } from '../../../Context/CreateContent';
 import ShowDate from '../../ShowDate/ShowDate';
+import { toast } from 'react-toastify';
 
 const FriendDetails = () => {
     const { friend } = useLoaderData();
@@ -11,7 +12,12 @@ const FriendDetails = () => {
     const { interactionType, setInteractionType } = useContext(TimelineContext);
 
     const handleClick = (type) => {
-        alert(`You chose to ${type} ${friend.name}`);
+        //alert(`You chose to ${type} ${friend.name}`);
+        toast.success(`You chose to ${type} ${friend.name}`, {
+            position: "top-right",
+            autoClose: 3000,
+        });
+
         const { date, time } = ShowDate.getDhakaDateTime();
         const Interaction_data = {
             type,
